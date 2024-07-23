@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .quote-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        #quote {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #author {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        #generate-btn {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #generate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            #quote {
+                font-size: 1.2em;
+            }
+
+            #author {
+                font-size: 1em;
+            }
+
+            #generate-btn {
+                font-size: 0.9em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote-box">
+            <p id="quote">Click the button to generate a random quote.</p>
+            <p id="author">~ Kanishk Raj</p>
+          <br>
+            <button id="generate-btn">Generate Quote</button>
+        </div>
+    </div>
+ <script>
+    const quotes = [
+        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "The purpose of our lives is to be happy.", author: "Dalai Lama" },
+        { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+        { text: "Get busy living or get busy dying.", author: "Stephen King" },
+        { text: "You have within you right now, everything you need to deal with whatever the world can throw at you.", author: "Brian Tracy" },
+        { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+        { text: "In the end, we will remember not the words of our enemies, but the silence of our friends.", author: "Martin Luther King Jr." },
+        { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+        { text: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+        { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson" },
+        { text: "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.", author: "Albert Schweitzer" },
+        { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+        { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+        { text: "The best way to predict your future is to create it.", author: "Peter Drucker" },
+        { text: "To be the best, you must be able to handle the worst.", author: "Wilson Kanadi" },
+        { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+        { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+        { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+        { text: "Opportunities don't happen. You create them.", author: "Chris Grosser" },
+        { text: "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.", author: "Roy T. Bennett" },
+        { text: "We may encounter many defeats but we must not be defeated.", author: "Maya Angelou" },
+        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { text: "Success is not how high you have climbed, but how you make a positive difference to the world.", author: "Roy T. Bennett" },
+        { text: "Life is short, and it's up to you to make it sweet.", author: "Sarah Louise Delany" },
+        { text: "In three words I can sum up everything I've learned about life: it goes on.", author: "Robert Frost" },
+        { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+        { text: "You have within you right now, everything you need to deal with whatever the world can throw at you.", author: "Brian Tracy" },
+        { text: "The best revenge is massive success.", author: "Frank Sinatra" },
+        { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+        { text: "The journey of a thousand miles begins with one step.", author: "Lao Tzu" },
+        { text: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama" },
+        { text: "You can't use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
+        { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
+        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { text: "The best way to predict your future is to create it.", author: "Peter Drucker" },
+        { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+        { text: "You must be the change you wish to see in the world.", author: "Mahatma Gandhi" },
+        { text: "The best way to find yourself is to lose yourself in the service of others.", author: "Mahatma Gandhi" },
+        { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+        { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+        { text: "We may encounter many defeats but we must not be defeated.", author: "Maya Angelou" },
+        { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+        { text: "The purpose of our lives is to be happy.", author: "Dalai Lama" },
+        { text: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
+        { text: "The mind is everything. What you think you become.", author: "Buddha" },
+        { text: "You do not find the happy life. You make it.", author: "Camilla E. Kimball" },
+        { text: "If you want to lift yourself up, lift up someone else.", author: "Booker T. Washington" },
+        { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+        { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+        { text: "You do not find the happy life. You make it.", author: "Camilla E. Kimball" },
+        { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+        { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson" },
+        { text: "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.", author: "Albert Schweitzer" },
+        { text: "In the end, we will remember not the words of our enemies, but the silence of our friends.", author: "Martin Luther King Jr." },
+        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+        { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+        { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+        { text: "You must be the change you wish to see in the world.", author: "Mahatma Gandhi" },
+        { text: "The best way to find yourself is to lose yourself in the service of others.", author: "Mahatma Gandhi" }
+    ];
+
+    document.getElementById('generate-btn').addEventListener('click', () => {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('quote').textContent = `"${randomQuote.text}"`;
+        document.getElementById('author').textContent = `- ${randomQuote.author}`;
+    });
+ </script>
+</body>
+</html>
